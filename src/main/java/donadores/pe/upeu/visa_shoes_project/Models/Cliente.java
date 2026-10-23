@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import javax.print.Doc;
 
 public class Cliente extends Persona {
     private final IntegerProperty idCliente = new SimpleIntegerProperty();

@@ -7,9 +7,11 @@ module donadores.pe.upeu.visa_shoes_project {
     requires net.synedra.validatorfx;
     requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
+    requires java.sql;
+    requires org.xerial.sqlitejdbc;
 
 
-    opens pe.edu.upeu.project_final.Models to javafx.base, javafx.fxml;
+    opens donadores.pe.upeu.visa_shoes_project.Models to javafx.base, javafx.fxml;
     opens donadores.pe.upeu.visa_shoes_project to javafx.fxml;
     exports donadores.pe.upeu.visa_shoes_project;
 
