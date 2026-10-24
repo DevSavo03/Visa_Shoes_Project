@@ -21,7 +21,7 @@ public class ClienteDaoImp implements IClienteDao {
 
         try (Connection conexion = ConexionDB_V.getConnection();
              PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
-            sentencia.setString(1, cliente.getNombre());
+            sentencia.setString(1, cliente.getnombre());
             sentencia.setString(2, cliente.getApellidos());
             sentencia.setString(3, cliente.getDocumento());
             sentencia.setString(4, cliente.getCelular());
@@ -41,7 +41,7 @@ public class ClienteDaoImp implements IClienteDao {
 
         try (Connection conexion = ConexionDB_V.getConnection();
              PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
-            sentencia.setString(1, cliente.getNombre());
+            sentencia.setString(1, cliente.getnombre());
             sentencia.setString(2, cliente.getApellidos());
             sentencia.setString(3, cliente.getDocumento());
             sentencia.setString(4, cliente.getCelular());
