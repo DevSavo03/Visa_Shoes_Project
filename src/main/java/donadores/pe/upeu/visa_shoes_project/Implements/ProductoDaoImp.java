@@ -2,7 +2,6 @@ package donadores.pe.upeu.visa_shoes_project.Implements;
 
 import donadores.pe.upeu.visa_shoes_project.Interfaces.IProductoDao;
 import donadores.pe.upeu.visa_shoes_project.Models.Producto;
-
 import donadores.pe.upeu.visa_shoes_project.Utils.ConexionDB_V;
 
 import java.math.BigDecimal;
@@ -27,8 +26,7 @@ public class ProductoDaoImp implements IProductoDao {
             sentencia.setString(3, producto.getTalla());
             sentencia.setBigDecimal(4, producto.getPrecio());
             sentencia.setInt(5, producto.getStock());
-            sentencia.executeUpdate();
-            return true;
+            return sentencia.executeUpdate() == 1;
         } catch (SQLException e) {
             System.err.println("No se pudo registrar el producto: " + e.getMessage());
             return false;
@@ -40,21 +38,15 @@ public class ProductoDaoImp implements IProductoDao {
         String consulta = "UPDATE Producto SET Modelo = ?, Marca = ?, Talla = ?, "
                 + "Precio = ?, Stock = ? WHERE IDproducto = ?";
 
-        try (Connection conexion = ConexionDB_V.getConnection()) {
-            if (!existeProducto(conexion, producto.getIdproducto())) {
-                return false;
-            }
-
-            try (PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
-                sentencia.setString(1, producto.getModelo());
-                sentencia.setString(2, producto.getMarca());
-                sentencia.setString(3, producto.getTalla());
-                sentencia.setBigDecimal(4, producto.getPrecio());
-                sentencia.setInt(5, producto.getStock());
-                sentencia.setInt(6, producto.getIdproducto());
-                sentencia.executeUpdate();
-                return true;
-            }
+        try (Connection conexion = ConexionDB_V.getConnection();
+             PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
+            sentencia.setString(1, producto.getModelo());
+            sentencia.setString(2, producto.getMarca());
+            sentencia.setString(3, producto.getTalla());
+            sentencia.setBigDecimal(4, producto.getPrecio());
+            sentencia.setInt(5, producto.getStock());
+            sentencia.setInt(6, producto.getIdproducto());
+            return sentencia.executeUpdate() == 1;
         } catch (SQLException e) {
             System.err.println("No se pudo actualizar el producto: " + e.getMessage());
             return false;
@@ -82,16 +74,10 @@ public class ProductoDaoImp implements IProductoDao {
     public boolean delete(Producto producto) {
         String consulta = "DELETE FROM Producto WHERE IDproducto = ?";
 
-        try (Connection conexion = ConexionDB_V.getConnection()) {
-            if (!existeProducto(conexion, producto.getIdproducto())) {
-                return false;
-            }
-
-            try (PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
-                sentencia.setInt(1, producto.getIdproducto());
-                sentencia.executeUpdate();
-                return true;
-            }
+        try (Connection conexion = ConexionDB_V.getConnection();
+             PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
+            sentencia.setInt(1, producto.getIdproducto());
+            return sentencia.executeUpdate() == 1;
         } catch (SQLException e) {
             System.err.println("No se pudo eliminar el producto. Puede estar incluido en una venta: "
                     + e.getMessage());
@@ -115,16 +101,6 @@ public class ProductoDaoImp implements IProductoDao {
             System.err.println("No se pudo listar los productos: " + e.getMessage());
         }
         return productos;
-    }
-
-    private boolean existeProducto(Connection conexion, int id) throws SQLException {
-        String consulta = "SELECT 1 FROM Producto WHERE IDproducto = ?";
-        try (PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
-            sentencia.setInt(1, id);
-            try (ResultSet resultado = sentencia.executeQuery()) {
-                return resultado.next();
-            }
-        }
     }
 
     private Producto crearProducto(ResultSet resultado) throws SQLException {

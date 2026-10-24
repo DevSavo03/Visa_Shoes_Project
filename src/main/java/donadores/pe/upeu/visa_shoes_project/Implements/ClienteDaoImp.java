@@ -21,14 +21,13 @@ public class ClienteDaoImp implements IClienteDao {
 
         try (Connection conexion = ConexionDB_V.getConnection();
              PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
-            sentencia.setString(1, cliente.getnombre());
+            sentencia.setString(1, cliente.getNombre());
             sentencia.setString(2, cliente.getApellidos());
             sentencia.setString(3, cliente.getDocumento());
             sentencia.setString(4, cliente.getCelular());
             sentencia.setString(5, cliente.getDireccion());
             sentencia.setString(6, cliente.getCorreo());
-            sentencia.executeUpdate();
-            return true;
+            return sentencia.executeUpdate() == 1;
         } catch (SQLException e) {
             System.err.println("No se pudo registrar el cliente: " + e.getMessage());
             return false;
@@ -40,22 +39,16 @@ public class ClienteDaoImp implements IClienteDao {
         String consulta = "UPDATE Cliente SET Persona = ?, Apellido = ?, Doc = ?, "
                 + "Celular = ?, Direccion = ?, Correo = ? WHERE IDcliente = ?";
 
-        try (Connection conexion = ConexionDB_V.getConnection()) {
-            if (!existeCliente(conexion, cliente.getIdCliente())) {
-                return false;
-            }
-
-            try (PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
-                sentencia.setString(1, cliente.getnombre());
-                sentencia.setString(2, cliente.getApellidos());
-                sentencia.setString(3, cliente.getDocumento());
-                sentencia.setString(4, cliente.getCelular());
-                sentencia.setString(5, cliente.getDireccion());
-                sentencia.setString(6, cliente.getCorreo());
-                sentencia.setInt(7, cliente.getIdCliente());
-                sentencia.executeUpdate();
-                return true;
-            }
+        try (Connection conexion = ConexionDB_V.getConnection();
+             PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
+            sentencia.setString(1, cliente.getNombre());
+            sentencia.setString(2, cliente.getApellidos());
+            sentencia.setString(3, cliente.getDocumento());
+            sentencia.setString(4, cliente.getCelular());
+            sentencia.setString(5, cliente.getDireccion());
+            sentencia.setString(6, cliente.getCorreo());
+            sentencia.setInt(7, cliente.getIdCliente());
+            return sentencia.executeUpdate() == 1;
         } catch (SQLException e) {
             System.err.println("No se pudo actualizar el cliente: " + e.getMessage());
             return false;
@@ -100,16 +93,10 @@ public class ClienteDaoImp implements IClienteDao {
     public boolean delete(Cliente cliente) {
         String consulta = "DELETE FROM Cliente WHERE IDcliente = ?";
 
-        try (Connection conexion = ConexionDB_V.getConnection()) {
-            if (!existeCliente(conexion, cliente.getIdCliente())) {
-                return false;
-            }
-
-            try (PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
-                sentencia.setInt(1, cliente.getIdCliente());
-                sentencia.executeUpdate();
-                return true;
-            }
+        try (Connection conexion = ConexionDB_V.getConnection();
+             PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
+            sentencia.setInt(1, cliente.getIdCliente());
+            return sentencia.executeUpdate() == 1;
         } catch (SQLException e) {
             System.err.println("No se pudo eliminar el cliente: " + e.getMessage());
             return false;
@@ -132,16 +119,6 @@ public class ClienteDaoImp implements IClienteDao {
             System.err.println("No se pudo listar los clientes: " + e.getMessage());
         }
         return clientes;
-    }
-
-    private boolean existeCliente(Connection conexion, int id) throws SQLException {
-        String consulta = "SELECT 1 FROM Cliente WHERE IDcliente = ?";
-        try (PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
-            sentencia.setInt(1, id);
-            try (ResultSet resultado = sentencia.executeQuery()) {
-                return resultado.next();
-            }
-        }
     }
 
     private Cliente crearCliente(ResultSet resultado) throws SQLException {

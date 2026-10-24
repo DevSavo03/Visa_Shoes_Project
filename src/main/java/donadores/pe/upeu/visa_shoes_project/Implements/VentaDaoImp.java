@@ -45,7 +45,9 @@ public class VentaDaoImp implements IVentaDao {
                 String consulta = "INSERT INTO Venta (Total) VALUES (?)";
                 try (PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
                     sentencia.setBigDecimal(1, total);
-                    sentencia.executeUpdate();
+                    if (sentencia.executeUpdate() != 1) {
+                        throw new SQLException("No se pudo crear el registro de venta.");
+                    }
                 }
 
                 int idVenta = obtenerUltimoId(conexion);
@@ -142,12 +144,13 @@ public class VentaDaoImp implements IVentaDao {
             return false;
         }
 
-        String consulta = "UPDATE Producto SET Stock = Stock - ? WHERE IDproducto = ?";
+        String consulta = "UPDATE Producto SET Stock = Stock - ? "
+                + "WHERE IDproducto = ? AND Stock >= ?";
         try (PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
             sentencia.setInt(1, detalle.getCantidad());
             sentencia.setInt(2, detalle.getProducto().getIdproducto());
-            sentencia.executeUpdate();
-            return true;
+            sentencia.setInt(3, detalle.getCantidad());
+            return sentencia.executeUpdate() == 1;
         }
     }
 
@@ -163,7 +166,9 @@ public class VentaDaoImp implements IVentaDao {
             sentencia.setInt(3, detalle.getCantidad());
             sentencia.setBigDecimal(4, detalle.getPrecioUnit());
             sentencia.setBigDecimal(5, detalle.getImporte());
-            sentencia.executeUpdate();
+            if (sentencia.executeUpdate() != 1) {
+                throw new SQLException("No se pudo guardar un producto de la venta.");
+            }
         }
     }
 
