@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="16.0" styleClass="content-page"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="donadores.pe.upeu.visa_shoes_project.Controllers.ProductoController">
+    <padding>
+        <Insets top="26.0" right="30.0" bottom="26.0" left="30.0" />
+    </padding>
+    <Label text="Productos" styleClass="page-title" />
+    <Label text="Mantén actualizado el catálogo y el stock disponible."
+           styleClass="page-description" wrapText="true" />
+
+    <GridPane hgap="12.0" vgap="10.0" styleClass="form-panel">
+        <padding>
+            <Insets top="16.0" right="16.0" bottom="16.0" left="16.0" />
+        </padding>
+        <Label text="Modelo" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="txtModelo" promptText="Modelo del calzado" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label text="Marca" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+        <TextField fx:id="txtMarca" promptText="Marca" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+        <Label text="Talla" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="txtTalla" promptText="Talla" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="Precio" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <TextField fx:id="txtPrecio" promptText="0.00" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+        <Label text="Stock" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="txtStock" promptText="Cantidad disponible" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    </GridPane>
+
+    <HBox spacing="8.0">
+        <Button text="Nuevo" onAction="#handleNuevo" styleClass="action-button" />
+        <Button text="Editar" onAction="#handleEditar" styleClass="secondary-button" />
+        <Button text="Guardar" onAction="#handleGuardar" styleClass="action-button" />
+        <Button text="Eliminar" onAction="#handleEliminar" styleClass="danger-button" />
+    </HBox>
+
+    <TableView fx:id="tablaProductos" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="55.0" />
+            <TableColumn fx:id="colModelo" text="Modelo" prefWidth="190.0" />
+            <TableColumn fx:id="colMarca" text="Marca" prefWidth="140.0" />
+            <TableColumn fx:id="colTalla" text="Talla" prefWidth="90.0" />
+            <TableColumn fx:id="colPrecio" text="Precio" prefWidth="115.0" />
+            <TableColumn fx:id="colStock" text="Stock" prefWidth="95.0" />
+        </columns>
+    </TableView>
+</VBox>
