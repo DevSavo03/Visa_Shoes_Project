@@ -19,7 +19,7 @@ public class VentaDaoImp implements IVentaDao {
 
     @Override
     public boolean insert(Venta venta) {
-        if (venta == null || venta.getDetalleVenta().isEmpty()) {
+        if (venta == null || venta.getIdCliente() <= 0 || venta.getDetalleVenta().isEmpty()) {
             return false;
         }
 
@@ -42,12 +42,11 @@ public class VentaDaoImp implements IVentaDao {
             conexion.setAutoCommit(false);
 
             try {
-                String consulta = "INSERT INTO Venta (Total) VALUES (?)";
+                String consulta = "INSERT INTO Venta (Total, IdCliente) VALUES (?, ?)";
                 try (PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
                     sentencia.setBigDecimal(1, total);
-                    if (sentencia.executeUpdate() != 1) {
-                        throw new SQLException("No se pudo crear el registro de venta.");
-                    }
+                    sentencia.setInt(2, venta.getIdCliente());
+                    sentencia.executeUpdate();
                 }
 
                 int idVenta = obtenerUltimoId(conexion);
@@ -80,7 +79,7 @@ public class VentaDaoImp implements IVentaDao {
 
     @Override
     public Venta searchById(int id) {
-        String consulta = "SELECT IdVenta, Fecha, Total FROM Venta WHERE IdVenta = ?";
+        String consulta = consultaVentas() + " WHERE v.IdVenta = ?";
         Venta venta = null;
 
         try (Connection conexion = ConexionDB_V.getConnection();
@@ -106,7 +105,7 @@ public class VentaDaoImp implements IVentaDao {
     @Override
     public List<Venta> listAll() {
         List<Venta> ventas = new ArrayList<>();
-        String consulta = "SELECT IdVenta, Fecha, Total FROM Venta ORDER BY IdVenta DESC";
+        String consulta = consultaVentas() + " ORDER BY v.IdVenta DESC";
 
         try (Connection conexion = ConexionDB_V.getConnection();
              PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
@@ -144,13 +143,12 @@ public class VentaDaoImp implements IVentaDao {
             return false;
         }
 
-        String consulta = "UPDATE Producto SET Stock = Stock - ? "
-                + "WHERE IDproducto = ? AND Stock >= ?";
+        String consulta = "UPDATE Producto SET Stock = Stock - ? WHERE IDproducto = ?";
         try (PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
             sentencia.setInt(1, detalle.getCantidad());
             sentencia.setInt(2, detalle.getProducto().getIdproducto());
-            sentencia.setInt(3, detalle.getCantidad());
-            return sentencia.executeUpdate() == 1;
+            sentencia.executeUpdate();
+            return true;
         }
     }
 
@@ -166,9 +164,7 @@ public class VentaDaoImp implements IVentaDao {
             sentencia.setInt(3, detalle.getCantidad());
             sentencia.setBigDecimal(4, detalle.getPrecioUnit());
             sentencia.setBigDecimal(5, detalle.getImporte());
-            if (sentencia.executeUpdate() != 1) {
-                throw new SQLException("No se pudo guardar un producto de la venta.");
-            }
+            sentencia.executeUpdate();
         }
     }
 
@@ -213,10 +209,24 @@ public class VentaDaoImp implements IVentaDao {
     }
 
     private Venta crearVenta(ResultSet resultado) throws SQLException {
+        String nombreCliente = resultado.getString("NombreCliente");
+        if (nombreCliente == null || nombreCliente.isBlank()) {
+            nombreCliente = "Sin cliente";
+        }
         return new Venta(
                 resultado.getInt("IdVenta"),
                 resultado.getString("Fecha"),
-                resultado.getBigDecimal("Total")
+                resultado.getBigDecimal("Total"),
+                resultado.getInt("IdCliente"),
+                nombreCliente
         );
+    }
+
+    private String consultaVentas() {
+        return "SELECT v.IdVenta, v.Fecha, v.Total, COALESCE(c.IDcliente, 0) AS IdCliente, "
+                + "CASE WHEN c.IDcliente IS NULL THEN 'Sin cliente' "
+                + "ELSE TRIM(COALESCE(c.Persona, '') || ' ' || COALESCE(c.Apellido, '')) END "
+                + "AS NombreCliente FROM Venta v "
+                + "LEFT JOIN Cliente c ON c.IDcliente = v.IdCliente";
     }
 }

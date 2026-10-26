@@ -22,6 +22,12 @@
            styleClass="page-description" wrapText="true" />
 
     <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="form-panel">
+        <padding><Insets top="12.0" right="14.0" bottom="12.0" left="14.0" /></padding>
+        <Label text="Cliente" />
+        <ComboBox fx:id="cbCliente" prefWidth="420.0" promptText="Selecciona un cliente registrado" />
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="form-panel">
         <padding>
             <Insets top="14.0" right="14.0" bottom="14.0" left="14.0" />
         </padding>
@@ -50,12 +56,14 @@
 
     <HBox alignment="CENTER_LEFT" spacing="10.0">
         <Label text="Ventas registradas" styleClass="section-title" />
+        <Button text="Ver detalle" onAction="#handleVerDetalleVenta" styleClass="secondary-button" />
         <Button text="Actualizar" onAction="#handleActualizar" styleClass="secondary-button" />
     </HBox>
     <TableView fx:id="tablaVentas" prefHeight="170.0" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="colVentaId" text="N.º venta" prefWidth="100.0" />
             <TableColumn fx:id="colVentaFecha" text="Fecha" prefWidth="240.0" />
+            <TableColumn fx:id="colVentaCliente" text="Cliente" prefWidth="210.0" />
             <TableColumn fx:id="colVentaTotal" text="Total" prefWidth="150.0" />
         </columns>
     </TableView>

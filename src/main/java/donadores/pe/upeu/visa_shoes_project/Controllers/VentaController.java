@@ -1,9 +1,12 @@
 package donadores.pe.upeu.visa_shoes_project.Controllers;
 
 import donadores.pe.upeu.visa_shoes_project.Implements.ProductoDaoImp;
+import donadores.pe.upeu.visa_shoes_project.Implements.ClienteDaoImp;
 import donadores.pe.upeu.visa_shoes_project.Implements.VentaDaoImp;
 import donadores.pe.upeu.visa_shoes_project.Interfaces.IProductoDao;
 import donadores.pe.upeu.visa_shoes_project.Interfaces.IVentaDao;
+import donadores.pe.upeu.visa_shoes_project.Interfaces.IClienteDao;
+import donadores.pe.upeu.visa_shoes_project.Models.Cliente;
 import donadores.pe.upeu.visa_shoes_project.Models.DetalleVenta;
 import donadores.pe.upeu.visa_shoes_project.Models.Producto;
 import donadores.pe.upeu.visa_shoes_project.Models.Venta;
@@ -13,6 +16,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,6 +29,7 @@ import java.math.BigDecimal;
 public class VentaController {
 
     @FXML private ComboBox<Producto> cbProducto;
+    @FXML private ComboBox<Cliente> cbCliente;
     @FXML private TextField txtCantidad;
     @FXML private Label lblTotal;
 
@@ -37,9 +43,11 @@ public class VentaController {
     @FXML private TableColumn<Venta, Integer> colVentaId;
     @FXML private TableColumn<Venta, String> colVentaFecha;
     @FXML private TableColumn<Venta, BigDecimal> colVentaTotal;
+    @FXML private TableColumn<Venta, String> colVentaCliente;
 
     private final IProductoDao productoDao = new ProductoDaoImp();
     private final IVentaDao ventaDao = new VentaDaoImp();
+    private final IClienteDao clienteDao = new ClienteDaoImp();
     private final ObservableList<DetalleVenta> detalleActual = FXCollections.observableArrayList();
 
     @FXML
@@ -47,8 +55,10 @@ public class VentaController {
         prepararTablaDetalle();
         prepararTablaVentas();
         prepararComboProductos();
+        prepararComboClientes();
         tablaDetalle.setItems(detalleActual);
         cargarProductos();
+        cargarClientes();
         cargarVentas();
         actualizarTotal();
     }
@@ -68,6 +78,20 @@ public class VentaController {
         colVentaId.setCellValueFactory(fila -> fila.getValue().idventaProperty().asObject());
         colVentaFecha.setCellValueFactory(fila -> fila.getValue().fechaProperty());
         colVentaTotal.setCellValueFactory(fila -> fila.getValue().totalProperty());
+        colVentaCliente.setCellValueFactory(fila -> fila.getValue().nombreClienteProperty());
+    }
+
+    private void prepararComboClientes() {
+        cbCliente.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Cliente cliente) {
+                return cliente == null ? "" : cliente.getnombre() + " " + cliente.getApellidos()
+                        + " — " + cliente.getDocumento();
+            }
+
+            @Override
+            public Cliente fromString(String texto) { return null; }
+        });
     }
 
     private void prepararComboProductos() {
@@ -94,6 +118,10 @@ public class VentaController {
 
     private void cargarVentas() {
         tablaVentas.setItems(FXCollections.observableArrayList(ventaDao.listAll()));
+    }
+
+    private void cargarClientes() {
+        cbCliente.setItems(FXCollections.observableArrayList(clienteDao.listAll()));
     }
 
     @FXML
@@ -155,6 +183,12 @@ public class VentaController {
 
     @FXML
     private void handleRegistrarVenta() {
+        Cliente cliente = cbCliente.getValue();
+        if (cliente == null) {
+            mostrarMensaje(Alert.AlertType.WARNING, "Cliente requerido",
+                    "Selecciona un cliente registrado en la sección Clientes.");
+            return;
+        }
         if (detalleActual.isEmpty()) {
             mostrarMensaje(Alert.AlertType.WARNING, "Venta vacía",
                     "Agrega al menos un producto antes de registrar la venta.");
@@ -162,6 +196,8 @@ public class VentaController {
         }
 
         Venta venta = new Venta();
+        venta.setIdCliente(cliente.getIdCliente());
+        venta.setNombreCliente(cliente.getnombre() + " " + cliente.getApellidos());
         venta.getDetalleVenta().addAll(detalleActual);
         venta.calcularTotal();
 
@@ -170,6 +206,7 @@ public class VentaController {
                     "La venta se registró correctamente.");
             detalleActual.clear();
             cbProducto.getSelectionModel().clearSelection();
+            cbCliente.getSelectionModel().clearSelection();
             actualizarTotal();
             cargarProductos();
             cargarVentas();
@@ -182,7 +219,46 @@ public class VentaController {
     @FXML
     private void handleActualizar() {
         cargarProductos();
+        cargarClientes();
         cargarVentas();
+    }
+
+    @FXML
+    private void handleVerDetalleVenta() {
+        Venta venta = tablaVentas.getSelectionModel().getSelectedItem();
+        if (venta == null) {
+            mostrarMensaje(Alert.AlertType.WARNING, "Seleccion requerida",
+                    "Selecciona una venta del historial para ver sus productos.");
+            return;
+        }
+
+        TableView<DetalleVenta> tabla = new TableView<>();
+        TableColumn<DetalleVenta, String> producto = new TableColumn<>("Producto");
+        producto.setCellValueFactory(fila -> new ReadOnlyStringWrapper(
+                fila.getValue().getProducto().getMarca() + " "
+                        + fila.getValue().getProducto().getModelo() + " — talla "
+                        + fila.getValue().getProducto().getTalla()));
+        TableColumn<DetalleVenta, Integer> cantidad = new TableColumn<>("Cantidad");
+        cantidad.setCellValueFactory(fila -> fila.getValue().cantidadProperty().asObject());
+        TableColumn<DetalleVenta, BigDecimal> precio = new TableColumn<>("Precio unitario");
+        precio.setCellValueFactory(fila -> fila.getValue().precioUnitProperty());
+        TableColumn<DetalleVenta, BigDecimal> importe = new TableColumn<>("Importe");
+        importe.setCellValueFactory(fila -> fila.getValue().importeProperty());
+        tabla.getColumns().add(producto);
+        tabla.getColumns().add(cantidad);
+        tabla.getColumns().add(precio);
+        tabla.getColumns().add(importe);
+        tabla.setItems(FXCollections.observableArrayList(venta.getDetalleVenta()));
+        tabla.setPrefSize(650, 320);
+
+        Dialog<Void> dialogo = new Dialog<>();
+        dialogo.setTitle("Detalle de venta #" + venta.getIdventa());
+        dialogo.setHeaderText("Cliente: " + venta.getNombreCliente()
+                + "    |    Fecha: " + venta.getFecha()
+                + "    |    Total: " + venta.getTotal().toPlainString());
+        dialogo.getDialogPane().setContent(tabla);
+        dialogo.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        dialogo.showAndWait();
     }
 
     private void actualizarTotal() {

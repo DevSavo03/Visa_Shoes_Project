@@ -5,6 +5,7 @@ import donadores.pe.upeu.visa_shoes_project.Interfaces.IProductoDao;
 import donadores.pe.upeu.visa_shoes_project.Models.Producto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -30,9 +31,11 @@ public class ProductoController {
     @FXML private TextField txtTalla;
     @FXML private TextField txtPrecio;
     @FXML private TextField txtStock;
+    @FXML private TextField txtBuscar;
 
     private final IProductoDao productoDao = new ProductoDaoImp();
     private ObservableList<Producto> listaProductos;
+    private FilteredList<Producto> productosFiltrados;
     private Producto productoSeleccionado;
 
     @FXML
@@ -43,12 +46,29 @@ public class ProductoController {
         colTalla.setCellValueFactory(fila -> fila.getValue().tallaProperty());
         colPrecio.setCellValueFactory(fila -> fila.getValue().precioProperty());
         colStock.setCellValueFactory(fila -> fila.getValue().stockProperty().asObject());
+        txtBuscar.textProperty().addListener((observable, anterior, actual) -> filtrarProductos(actual));
         cargarDatos();
     }
 
     private void cargarDatos() {
         listaProductos = FXCollections.observableArrayList(productoDao.listAll());
-        tablaProductos.setItems(listaProductos);
+        productosFiltrados = new FilteredList<>(listaProductos, producto -> true);
+        tablaProductos.setItems(productosFiltrados);
+        filtrarProductos(txtBuscar.getText());
+    }
+
+    private void filtrarProductos(String texto) {
+        if (productosFiltrados == null) return;
+        String criterio = texto == null ? "" : texto.trim().toLowerCase();
+        productosFiltrados.setPredicate(producto -> criterio.isEmpty()
+                || contiene(producto.getModelo(), criterio)
+                || contiene(producto.getMarca(), criterio)
+                || contiene(producto.getTalla(), criterio)
+                || String.valueOf(producto.getIdproducto()).contains(criterio));
+    }
+
+    private boolean contiene(String valor, String criterio) {
+        return valor != null && valor.toLowerCase().contains(criterio);
     }
 
     @FXML

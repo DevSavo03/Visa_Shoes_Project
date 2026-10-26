@@ -11,29 +11,35 @@
 
 <BorderPane prefHeight="720.0" prefWidth="1100.0"
             stylesheets="@../css/style.css"
+            styleClass="app-shell"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="donadores.pe.upeu.visa_shoes_project.Controllers.MainController">
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="topbar">
-            <padding>
-                <Insets top="14.0" right="26.0" bottom="14.0" left="26.0" />
-            </padding>
-            <Label text="VS" styleClass="brand-mark" />
-            <VBox spacing="2.0">
-                <Label text="VISA SHOES" styleClass="brand" />
-                <Label text="ZAPATERÍA" styleClass="brand-subtitle" />
-            </VBox>
-            <Region HBox.hgrow="ALWAYS" />
-            <Label text="GESTIÓN DE TIENDA" styleClass="topbar-caption" />
-        </HBox>
+        <VBox>
+            <HBox alignment="CENTER" styleClass="announcement-bar">
+                <Label text="VISA SHOES  ·  CALZADO CON ESTILO PARA CADA PASO" styleClass="announcement-text" />
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="topbar">
+                <padding>
+                    <Insets top="14.0" right="26.0" bottom="14.0" left="26.0" />
+                </padding>
+                <Label text="VS" styleClass="brand-mark" />
+                <VBox spacing="2.0">
+                    <Label text="VISA SHOES" styleClass="brand" />
+                    <Label text="ZAPATERÍA" styleClass="brand-subtitle" />
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="PANEL DE ADMINISTRACIÓN" styleClass="topbar-caption" />
+            </HBox>
+        </VBox>
     </top>
     <left>
         <VBox prefWidth="205.0" spacing="9.0" styleClass="sidebar">
             <padding>
                 <Insets top="24.0" right="14.0" bottom="20.0" left="14.0" />
             </padding>
-            <Label text="NAVEGACIÓN" styleClass="menu-caption" />
+            <Label text="MENÚ PRINCIPAL" styleClass="menu-caption" />
             <Button text="Inicio" onAction="#mostrarInicio" maxWidth="Infinity" styleClass="nav-button" />
             <Button text="Clientes" onAction="#mostrarClientes" maxWidth="Infinity" styleClass="nav-button" />
             <Button text="Productos" onAction="#mostrarProductos" maxWidth="Infinity" styleClass="nav-button" />
@@ -44,7 +50,7 @@
         <VBox styleClass="workspace">
             <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS" />
             <HBox alignment="CENTER_RIGHT" styleClass="footer">
-                <Label text="Visa Shoes  ·  Panel de administración" />
+                <Label text="Visa Shoes  ·  Gestión de zapatería" />
             </HBox>
         </VBox>
     </center>

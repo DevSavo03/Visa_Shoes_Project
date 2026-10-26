@@ -44,6 +44,8 @@
         <Button text="Eliminar" onAction="#handleEliminar" styleClass="danger-button" />
     </HBox>
 
+    <TextField fx:id="txtBuscar" promptText="Buscar por modelo, marca, talla o ID" />
+
     <TableView fx:id="tablaProductos" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="colId" text="ID" prefWidth="55.0" />
