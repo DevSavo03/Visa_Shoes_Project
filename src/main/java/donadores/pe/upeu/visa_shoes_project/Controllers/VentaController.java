@@ -28,22 +28,36 @@ import java.math.BigDecimal;
 
 public class VentaController {
 
-    @FXML private ComboBox<Producto> cbProducto;
-    @FXML private ComboBox<Cliente> cbCliente;
-    @FXML private TextField txtCantidad;
-    @FXML private Label lblTotal;
+    @FXML
+    private ComboBox<Producto> cbProducto;
+    @FXML
+    private ComboBox<Cliente> cbCliente;
+    @FXML
+    private TextField txtCantidad;
+    @FXML
+    private Label lblTotal;
 
-    @FXML private TableView<DetalleVenta> tablaDetalle;
-    @FXML private TableColumn<DetalleVenta, String> colDetalleModelo;
-    @FXML private TableColumn<DetalleVenta, Integer> colDetalleCantidad;
-    @FXML private TableColumn<DetalleVenta, BigDecimal> colDetallePrecio;
-    @FXML private TableColumn<DetalleVenta, BigDecimal> colDetalleImporte;
+    @FXML
+    private TableView<DetalleVenta> tablaDetalle;
+    @FXML
+    private TableColumn<DetalleVenta, String> colDetalleModelo;
+    @FXML
+    private TableColumn<DetalleVenta, Integer> colDetalleCantidad;
+    @FXML
+    private TableColumn<DetalleVenta, BigDecimal> colDetallePrecio;
+    @FXML
+    private TableColumn<DetalleVenta, BigDecimal> colDetalleImporte;
 
-    @FXML private TableView<Venta> tablaVentas;
-    @FXML private TableColumn<Venta, Integer> colVentaId;
-    @FXML private TableColumn<Venta, String> colVentaFecha;
-    @FXML private TableColumn<Venta, BigDecimal> colVentaTotal;
-    @FXML private TableColumn<Venta, String> colVentaCliente;
+    @FXML
+    private TableView<Venta> tablaVentas;
+    @FXML
+    private TableColumn<Venta, Integer> colVentaId;
+    @FXML
+    private TableColumn<Venta, String> colVentaFecha;
+    @FXML
+    private TableColumn<Venta, BigDecimal> colVentaTotal;
+    @FXML
+    private TableColumn<Venta, String> colVentaCliente;
 
     private final IProductoDao productoDao = new ProductoDaoImp();
     private final IVentaDao ventaDao = new VentaDaoImp();
@@ -90,7 +104,9 @@ public class VentaController {
             }
 
             @Override
-            public Cliente fromString(String texto) { return null; }
+            public Cliente fromString(String texto) {
+                return null;
+            }
         });
     }
 
