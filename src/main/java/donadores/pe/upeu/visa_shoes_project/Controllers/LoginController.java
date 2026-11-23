@@ -1,7 +1,8 @@
 package donadores.pe.upeu.visa_shoes_project.Controllers;
 
 import donadores.pe.upeu.visa_shoes_project.HelloApplication;
-import donadores.pe.upeu.visa_shoes_project.Implements.UsuarioDaoImpl;
+import donadores.pe.upeu.visa_shoes_project.Implements.UsuarioDaoImp;
+import donadores.pe.upeu.visa_shoes_project.Implements.UsuarioDaoImp;
 import donadores.pe.upeu.visa_shoes_project.Interfaces.IUsuarioDao;
 import donadores.pe.upeu.visa_shoes_project.Models.UserSession;
 import donadores.pe.upeu.visa_shoes_project.Models.Usuario;
@@ -22,7 +23,7 @@ public class LoginController {
     @FXML
     private PasswordField txtPassword;
 
-    private final IUsuarioDao usuarioDao = new UsuarioDaoImpl();
+    private final IUsuarioDao usuarioDao = new UsuarioDaoImp();
 
     @FXML
     private void handleLogin() {
