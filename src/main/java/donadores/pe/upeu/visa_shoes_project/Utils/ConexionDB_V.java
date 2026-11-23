@@ -15,14 +15,20 @@ public class ConexionDB_V {
 
                 String ruta = System.getProperty(
                         "visa.shoes.db", "C:/sqlite/db/Visa_Shoes_DataBase.db");
-                String url = "jdbc:sqlite:" + ruta;
-                connection = DriverManager.getConnection(url);
+                connection = DriverManager.getConnection("jdbc:sqlite:" + ruta);
                 connection.setAutoCommit(true);
 
                 try (Statement statement = connection.createStatement()) {
                     statement.execute("PRAGMA foreign_keys = ON");
+                    statement.execute("CREATE TABLE IF NOT EXISTS Usuario ("
+                            + "IDusuario INTEGER PRIMARY KEY AUTOINCREMENT, "
+                            + "Usuario TEXT NOT NULL UNIQUE, "
+                            + "Clave TEXT NOT NULL, "
+                            + "TipoUser TEXT NOT NULL, "
+                            + "Nombre TEXT NOT NULL, "
+                            + "Apellidos TEXT, "
+                            + "Documento TEXT)");
                 }
-                asegurarRelacionClienteVenta(connection);
             }
 
             return connection;
@@ -31,23 +37,5 @@ public class ConexionDB_V {
         }
     }
 
-    private static void asegurarRelacionClienteVenta(Connection conexion) throws Exception {
-        boolean existeColumna = false;
-        try (Statement statement = conexion.createStatement();
-             ResultSet columnas = statement.executeQuery("PRAGMA table_info(Venta)")) {
-            while (columnas.next()) {
-                if ("IdCliente".equalsIgnoreCase(columnas.getString("name"))) {
-                    existeColumna = true;
-                    break;
-                }
-            }
-        }
-        if (!existeColumna) {
-            try (Statement statement = conexion.createStatement()) {
-                statement.execute("ALTER TABLE Venta ADD COLUMN IdCliente INTEGER "
-                        + "REFERENCES Cliente(IDcliente)");
-            }
-        }
-    }
 
 }
