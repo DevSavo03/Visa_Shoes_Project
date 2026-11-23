@@ -6,12 +6,18 @@ import donadores.pe.upeu.visa_shoes_project.Models.Cliente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import donadores.pe.upeu.visa_shoes_project.HelloApplication;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class ClienteController {
@@ -24,16 +30,8 @@ public class ClienteController {
     @FXML private TableColumn<Cliente, String> colCelular;
     @FXML private TableColumn<Cliente, String> colCorreo;
 
-    @FXML private TextField txtNombre;
-    @FXML private TextField txtApellidos;
-    @FXML private TextField txtDocumento;
-    @FXML private TextField txtCelular;
-    @FXML private TextField txtDireccion;
-    @FXML private TextField txtCorreo;
-
     private final IClienteDao clienteDao = new ClienteDaoImp();
     private ObservableList<Cliente> listaClientes;
-    private Cliente clienteSeleccionado;
 
     @FXML
     public void initialize() {
@@ -53,106 +51,81 @@ public class ClienteController {
 
     @FXML
     private void handleNuevo() {
-        limpiarFormulario();
+        mostrarFormulario(null);
     }
 
     @FXML
     private void handleEditar() {
-        Cliente cliente = tablaClientes.getSelectionModel().getSelectedItem();
-        if (cliente == null) {
-            mostrarMensaje(Alert.AlertType.WARNING, "Seleccion requerida",
+        Cliente seleccionado = tablaClientes.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            mostrarMensaje(Alert.AlertType.WARNING, "Selección requerida",
                     "Selecciona un cliente para editarlo.");
             return;
         }
 
-        clienteSeleccionado = cliente;
-        txtNombre.setText(cliente.nombreProperty().get());
-        txtApellidos.setText(cliente.getApellidos());
-        txtDocumento.setText(cliente.getDocumento());
-        txtCelular.setText(cliente.getCelular());
-        txtDireccion.setText(cliente.getDireccion());
-        txtCorreo.setText(cliente.getCorreo());
-    }
-
-    @FXML
-    private void handleGuardar() {
-        if (!formularioValido()) {
-            mostrarMensaje(Alert.AlertType.WARNING, "Datos incompletos",
-                    "Escribe el nombre, apellido, documento y celular del cliente.");
-            return;
-        }
-
-        Cliente cliente = new Cliente();
-        if (clienteSeleccionado != null) {
-            cliente.setIdCliente(clienteSeleccionado.getIdCliente());
-        }
-        cliente.setNombre(txtNombre.getText().trim());
-        cliente.setApellidos(txtApellidos.getText().trim());
-        cliente.setDocumento(txtDocumento.getText().trim());
-        cliente.setCelular(txtCelular.getText().trim());
-        cliente.setDireccion(txtDireccion.getText().trim());
-        cliente.setCorreo(txtCorreo.getText().trim());
-
-        boolean guardado;
-        if (clienteSeleccionado == null) {
-            guardado = clienteDao.insert(cliente);
-        } else {
-            guardado = clienteDao.update(cliente);
-        }
-
-        if (guardado) {
-            mostrarMensaje(Alert.AlertType.INFORMATION, "Clientes",
-                    "Los datos del cliente se guardaron correctamente.");
-            cargarDatos();
-            limpiarFormulario();
-        } else {
-            mostrarMensaje(Alert.AlertType.ERROR, "Clientes",
-                    "No se pudieron guardar los datos del cliente.");
-        }
+        Cliente cliente = clienteDao.searchById(seleccionado.getIdCliente());
+        mostrarFormulario(cliente);
     }
 
     @FXML
     private void handleEliminar() {
         Cliente cliente = tablaClientes.getSelectionModel().getSelectedItem();
         if (cliente == null) {
-            mostrarMensaje(Alert.AlertType.WARNING, "Seleccion requerida",
+            mostrarMensaje(Alert.AlertType.WARNING, "Selección requerida",
                     "Selecciona un cliente para eliminarlo.");
             return;
         }
 
         Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION,
-                "¿Deseas eliminar a " + cliente.nombreProperty().get() + "?",
+                "¿Deseas eliminar a " + cliente.getnombre() + "?",
                 ButtonType.OK, ButtonType.CANCEL);
-        confirmacion.setHeaderText("Eliminar cliente");
+        confirmacion.setTitle("Eliminar cliente");
+        confirmacion.setHeaderText(null);
         Optional<ButtonType> respuesta = confirmacion.showAndWait();
 
         if (respuesta.isPresent() && respuesta.get() == ButtonType.OK) {
             if (clienteDao.delete(cliente)) {
                 cargarDatos();
-                limpiarFormulario();
             } else {
                 mostrarMensaje(Alert.AlertType.ERROR, "Clientes",
-                        "No se pudo eliminar el cliente.");
+                        "No se pudo eliminar el cliente. Puede tener ventas asociadas.");
             }
         }
     }
 
-    private boolean formularioValido() {
-        return !txtNombre.getText().isBlank()
-                && !txtApellidos.getText().isBlank()
-                && !txtDocumento.getText().isBlank()
-                && !txtCelular.getText().isBlank();
-    }
+    private void mostrarFormulario(Cliente cliente) {
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(
+                    "/donadores/pe/upeu/visa_shoes_project/views/cliente-form.fxml"));
+            Parent root = loader.load();
+            ClienteFormController controller = loader.getController();
+            controller.setCliente(cliente);
 
-    private void limpiarFormulario() {
-        clienteSeleccionado = null;
-        txtNombre.clear();
-        txtApellidos.clear();
-        txtDocumento.clear();
-        txtCelular.clear();
-        txtDireccion.clear();
-        txtCorreo.clear();
-        tablaClientes.getSelectionModel().clearSelection();
+            Stage stage = new Stage();
+            stage.setTitle(cliente == null ? "Nuevo cliente" : "Editar cliente");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            if (controller.isSaved()) {
+                Cliente clienteProcesado = controller.getCliente();
+                boolean guardado = cliente == null
+                        ? clienteDao.insert(clienteProcesado)
+                        : clienteDao.update(clienteProcesado);
+                if (guardado) {
+                    cargarDatos();
+                    mostrarMensaje(Alert.AlertType.INFORMATION, "Clientes",
+                            "Los datos del cliente se guardaron correctamente.");
+                } else {
+                    cargarDatos();
+                    mostrarMensaje(Alert.AlertType.ERROR, "Clientes",
+                            "No se pudieron guardar los datos. Revisa si el documento o correo ya existe.");
+                }
+            }
+        } catch (IOException e) {
+            mostrarMensaje(Alert.AlertType.ERROR, "Formulario de cliente",
+                    "No se pudo abrir el formulario: " + e.getMessage());
+        }
     }
 
     private void mostrarMensaje(Alert.AlertType tipo, String titulo, String mensaje) {
@@ -162,4 +135,5 @@ public class ClienteController {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
+
 }
