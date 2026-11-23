@@ -11,10 +11,15 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(
-                "/donadores/pe/upeu/visa_shoes_project/views/main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1100, 720);
-        stage.setTitle("Visa Shoes");
+                "/donadores/pe/upeu/visa_shoes_project/views/login-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 480, 400);
+        stage.setTitle("Visa Shoes - Iniciar sesión");
         stage.setScene(scene);
         stage.show();
     }
+
+    public static void main(String[] args) {
+        launch();
+    }
+
 }
