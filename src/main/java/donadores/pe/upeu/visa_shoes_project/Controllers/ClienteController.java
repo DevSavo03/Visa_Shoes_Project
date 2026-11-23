@@ -96,7 +96,7 @@ public class ClienteController {
     private void mostrarFormulario(Cliente cliente) {
         try {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(
-                    "/donadores/pe/upeu/visa_shoes_project/views/cliente-form.fxml"));
+                    "/donadores/pe/upeu/visa_shoes_project/views/Cliente-form.fxml"));
             Parent root = loader.load();
             ClienteFormController controller = loader.getController();
             controller.setCliente(cliente);
