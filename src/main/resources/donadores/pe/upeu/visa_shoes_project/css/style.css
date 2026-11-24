@@ -22,6 +22,8 @@
 .topbar {
     -fx-background-color: #0b0d11;
     -fx-border-color: transparent transparent #2b2f38 transparent;
+    -fx-background-color: #242629;
+    -fx-border-color: transparent transparent #34373b transparent;
     -fx-border-width: 0 0 1 0;
 }
 
