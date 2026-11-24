@@ -18,39 +18,40 @@
     <top>
         <VBox>
             <HBox alignment="CENTER" styleClass="announcement-bar">
-                <Label text="VISA SHOES  ·  CALZADO CON ESTILO PARA CADA PASO" styleClass="announcement-text" />
+                <Label text="VISA SHOES  ·  CALZADO URBANO, ESTILO PARA CADA DÍA"
+                       styleClass="announcement-text" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="topbar">
                 <padding>
-                    <Insets top="14.0" right="26.0" bottom="14.0" left="26.0" />
+                    <Insets top="13.0" right="26.0" bottom="13.0" left="26.0" />
                 </padding>
                 <Label text="VS" styleClass="brand-mark" />
                 <VBox spacing="2.0">
                     <Label text="VISA SHOES" styleClass="brand" />
-                    <Label text="ZAPATERÍA" styleClass="brand-subtitle" />
+                    <Label text="URBAN FOOTWEAR" styleClass="brand-subtitle" />
                 </VBox>
                 <Region HBox.hgrow="ALWAYS" />
-                <Label text="PANEL DE ADMINISTRACIÓN" styleClass="topbar-caption" />
+                <Label text="GESTIÓN DE TIENDA" styleClass="topbar-caption" />
             </HBox>
         </VBox>
     </top>
     <left>
-        <VBox prefWidth="205.0" spacing="9.0" styleClass="sidebar">
+        <VBox prefWidth="218.0" spacing="8.0" styleClass="sidebar">
             <padding>
                 <Insets top="24.0" right="14.0" bottom="20.0" left="14.0" />
             </padding>
             <Label text="MENÚ PRINCIPAL" styleClass="menu-caption" />
-            <Button text="Inicio" onAction="#mostrarInicio" maxWidth="Infinity" styleClass="nav-button" />
-            <Button text="Clientes" onAction="#mostrarClientes" maxWidth="Infinity" styleClass="nav-button" />
-            <Button text="Productos" onAction="#mostrarProductos" maxWidth="Infinity" styleClass="nav-button" />
-            <Button text="Ventas" onAction="#mostrarVentas" maxWidth="Infinity" styleClass="nav-button" />
+            <Button text="01    Inicio" onAction="#mostrarInicio" maxWidth="Infinity" styleClass="nav-button" />
+            <Button text="02    Clientes" onAction="#mostrarClientes" maxWidth="Infinity" styleClass="nav-button" />
+            <Button text="03    Productos" onAction="#mostrarProductos" maxWidth="Infinity" styleClass="nav-button" />
+            <Button text="04    Ventas" onAction="#mostrarVentas" maxWidth="Infinity" styleClass="nav-button" />
         </VBox>
     </left>
     <center>
         <VBox styleClass="workspace">
             <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS" />
             <HBox alignment="CENTER_RIGHT" styleClass="footer">
-                <Label text="Visa Shoes  ·  Gestión de zapatería" />
+                <Label text="VISA SHOES  ·  CALZADO URBANO" />
             </HBox>
         </VBox>
     </center>
