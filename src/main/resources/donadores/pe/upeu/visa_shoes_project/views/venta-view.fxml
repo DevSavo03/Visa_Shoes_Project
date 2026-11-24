@@ -19,12 +19,22 @@
     <padding>
         <Insets top="20.0" right="26.0" bottom="18.0" left="26.0" />
     </padding>
-    <VBox spacing="4.0" styleClass="page-header">
-        <Label text="PUNTO DE VENTA" styleClass="eyebrow" />
-        <Label text="Ventas" styleClass="page-title" />
-        <Label text="Arma el pedido, revisa el total y registra la operación."
-               styleClass="page-description" wrapText="true" />
-    </VBox>
+    <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="page-header">
+        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+            <Label text="PUNTO DE VENTA" styleClass="eyebrow" />
+            <Label text="Ventas" styleClass="page-title" />
+            <Label text="Arma el pedido, revisa el total y registra la operación."
+                   styleClass="page-description" wrapText="true" />
+        </VBox>
+        <HBox alignment="CENTER_RIGHT" spacing="12.0" styleClass="total-panel">
+            <VBox spacing="2.0">
+                <Label text="Total de venta" styleClass="total-caption" />
+                <Label fx:id="lblTotal" text="0.00" styleClass="total-value" />
+            </VBox>
+            <Button text="Registrar venta" onAction="#handleRegistrarVenta"
+                    styleClass="action-button" />
+        </HBox>
+    </HBox>
 
     <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="form-panel">
         <VBox spacing="5.0" HBox.hgrow="ALWAYS">
@@ -37,7 +47,8 @@
     <HBox alignment="BOTTOM_LEFT" spacing="12.0" styleClass="form-panel">
         <VBox spacing="5.0" HBox.hgrow="ALWAYS">
             <Label text="Producto" styleClass="field-label" />
-            <ComboBox fx:id="cbProducto" maxWidth="Infinity" promptText="Selecciona un producto" />
+            <TextField fx:id="txtBuscarProducto" maxWidth="Infinity" promptText="Marca, modelo o talla" />
+            <ComboBox fx:id="cbProducto" maxWidth="Infinity" promptText="Elige un resultado de búsqueda" />
         </VBox>
         <VBox spacing="5.0">
             <Label text="Cantidad" styleClass="field-label" />
@@ -62,13 +73,6 @@
             <TableColumn fx:id="colDetalleImporte" text="Importe" prefWidth="145.0" />
         </columns>
     </TableView>
-
-    <HBox alignment="CENTER_RIGHT" spacing="12.0" styleClass="total-panel">
-        <Label text="Total de venta" styleClass="total-caption" />
-        <Label fx:id="lblTotal" text="0.00" styleClass="total-value" />
-        <Button text="Registrar venta" onAction="#handleRegistrarVenta"
-                styleClass="action-button" />
-    </HBox>
 
     <HBox alignment="CENTER_LEFT" spacing="8.0">
         <Label text="Historial de ventas" styleClass="section-title" />

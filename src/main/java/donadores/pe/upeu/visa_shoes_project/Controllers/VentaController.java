@@ -13,6 +13,7 @@ import donadores.pe.upeu.visa_shoes_project.Models.Venta;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -25,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 
 public class VentaController {
 
@@ -32,6 +34,8 @@ public class VentaController {
     private ComboBox<Producto> cbProducto;
     @FXML
     private ComboBox<Cliente> cbCliente;
+    @FXML
+    private TextField txtBuscarProducto;
     @FXML
     private TextField txtCantidad;
     @FXML
@@ -63,6 +67,8 @@ public class VentaController {
     private final IVentaDao ventaDao = new VentaDaoImp();
     private final IClienteDao clienteDao = new ClienteDaoImp();
     private final ObservableList<DetalleVenta> detalleActual = FXCollections.observableArrayList();
+    private final ObservableList<Producto> productos = FXCollections.observableArrayList();
+    private final FilteredList<Producto> productosFiltrados = new FilteredList<>(productos);
 
     @FXML
     public void initialize() {
@@ -126,10 +132,23 @@ public class VentaController {
                 return null;
             }
         });
+        cbProducto.setItems(productosFiltrados);
+        txtBuscarProducto.textProperty().addListener((observable, textoAnterior, textoNuevo) -> {
+            cbProducto.getSelectionModel().clearSelection();
+            String busqueda = textoNuevo == null ? "" : textoNuevo.trim().toLowerCase(Locale.ROOT);
+            productosFiltrados.setPredicate(producto -> {
+                if (busqueda.isEmpty()) {
+                    return true;
+                }
+                String descripcion = producto.getMarca() + " " + producto.getModelo()
+                        + " " + producto.getTalla();
+                return descripcion.toLowerCase(Locale.ROOT).contains(busqueda);
+            });
+        });
     }
 
     private void cargarProductos() {
-        cbProducto.setItems(FXCollections.observableArrayList(productoDao.listAll()));
+        productos.setAll(productoDao.listAll());
     }
 
     private void cargarVentas() {
@@ -142,7 +161,7 @@ public class VentaController {
 
     @FXML
     private void handleAgregarDetalle() {
-        Producto producto = cbProducto.getValue();
+        Producto producto = cbProducto.getSelectionModel().getSelectedItem();
         if (producto == null) {
             mostrarMensaje(Alert.AlertType.WARNING, "Producto requerido",
                     "Selecciona el producto que se agregará a la venta.");
@@ -222,6 +241,7 @@ public class VentaController {
                     "La venta se registró correctamente.");
             detalleActual.clear();
             cbProducto.getSelectionModel().clearSelection();
+            txtBuscarProducto.clear();
             cbCliente.getSelectionModel().clearSelection();
             actualizarTotal();
             cargarProductos();
