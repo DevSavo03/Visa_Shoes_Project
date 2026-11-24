@@ -6,35 +6,40 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="16.0" styleClass="content-page"
+<VBox spacing="15.0" styleClass="content-page"
       stylesheets="@../css/style.css"
       xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="donadores.pe.upeu.visa_shoes_project.Controllers.ClienteController">
     <padding>
-        <Insets top="26.0" right="30.0" bottom="26.0" left="30.0" />
+        <Insets top="26.0" right="30.0" bottom="24.0" left="30.0" />
     </padding>
-    <Label text="Clientes" styleClass="page-title" />
-    <Label text="Administra la lista de clientes registrados."
-           styleClass="page-description" wrapText="true" />
+    <VBox spacing="5.0" styleClass="page-header">
+        <Label text="ATENCIÓN" styleClass="eyebrow" />
+        <Label text="Clientes" styleClass="page-title" />
+        <Label text="Consulta y administra la información de tus clientes."
+               styleClass="page-description" wrapText="true" />
+    </VBox>
 
-    <HBox spacing="8.0">
-        <Button text="Nuevo" onAction="#handleNuevo" styleClass="action-button" />
+    <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="toolbar">
+        <Label text="Directorio" styleClass="section-title" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button text="Nuevo cliente" onAction="#handleNuevo" styleClass="action-button" />
         <Button text="Editar" onAction="#handleEditar" styleClass="secondary-button" />
         <Button text="Eliminar" onAction="#handleEliminar" styleClass="danger-button" />
     </HBox>
 
     <TableView fx:id="tablaClientes" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn fx:id="colId" text="ID" prefWidth="55.0" />
-            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="130.0" />
-            <TableColumn fx:id="colApellidos" text="Apellidos" prefWidth="150.0" />
-            <TableColumn fx:id="colDocumento" text="Documento" prefWidth="115.0" />
-            <TableColumn fx:id="colCelular" text="Celular" prefWidth="110.0" />
-            <TableColumn fx:id="colCorreo" text="Correo" prefWidth="190.0" />
+            <TableColumn fx:id="colId" text="ID" prefWidth="60.0" />
+            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="145.0" />
+            <TableColumn fx:id="colApellidos" text="Apellidos" prefWidth="165.0" />
+            <TableColumn fx:id="colDocumento" text="Documento" prefWidth="135.0" />
+            <TableColumn fx:id="colCelular" text="Celular" prefWidth="125.0" />
+            <TableColumn fx:id="colCorreo" text="Correo" prefWidth="210.0" />
         </columns>
     </TableView>
 </VBox>
-

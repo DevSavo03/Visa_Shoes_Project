@@ -5,22 +5,31 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="16.0" prefWidth="420.0" prefHeight="360.0"
-      styleClass="content-page" stylesheets="@../css/style.css"
-      xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="donadores.pe.upeu.visa_shoes_project.Controllers.LoginController">
-    <padding>
-        <Insets top="32.0" right="42.0" bottom="32.0" left="42.0" />
-    </padding>
-    <Label text="Visa Shoes" styleClass="page-title" />
-    <Label text="Inicia sesión para administrar la zapatería." styleClass="page-description"
-           wrapText="true" />
-    <TextField fx:id="txtUser" promptText="Usuario" maxWidth="300.0" />
-    <PasswordField fx:id="txtPassword" promptText="Contraseña" maxWidth="300.0"
-                   onAction="#handleLogin" />
-    <Button text="Ingresar" onAction="#handleLogin" styleClass="action-button"
-            maxWidth="300.0" />
-</VBox>
+<StackPane prefWidth="480.0" prefHeight="400.0" styleClass="login-page"
+           stylesheets="@../css/style.css"
+           xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="donadores.pe.upeu.visa_shoes_project.Controllers.LoginController">
+    <VBox alignment="CENTER_LEFT" spacing="13.0" maxWidth="355.0" styleClass="login-card">
+        <padding>
+            <Insets top="28.0" right="30.0" bottom="30.0" left="30.0" />
+        </padding>
+        <Label text="VS  /  VISA SHOES" styleClass="login-brand" />
+        <Label text="Bienvenido" styleClass="login-title" />
+        <Label text="Ingresa para administrar la tienda." styleClass="login-subtitle" />
+        <VBox spacing="5.0">
+            <Label text="Usuario" styleClass="field-label" />
+            <TextField fx:id="txtUser" promptText="Tu usuario" maxWidth="Infinity" />
+        </VBox>
+        <VBox spacing="5.0">
+            <Label text="Contraseña" styleClass="field-label" />
+            <PasswordField fx:id="txtPassword" promptText="Tu contraseña"
+                           maxWidth="Infinity" onAction="#handleLogin" />
+        </VBox>
+        <Button text="Ingresar a Visa Shoes" onAction="#handleLogin"
+                styleClass="action-button" maxWidth="Infinity" />
+    </VBox>
+</StackPane>

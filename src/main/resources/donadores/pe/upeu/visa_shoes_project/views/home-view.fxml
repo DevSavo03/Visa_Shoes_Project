@@ -5,35 +5,37 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox spacing="18.0" styleClass="content-page home-page"
+      stylesheets="@../css/style.css"
       xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1">
     <padding>
-        <Insets top="28.0" right="34.0" bottom="24.0" left="34.0" />
+        <Insets top="26.0" right="30.0" bottom="24.0" left="30.0" />
     </padding>
-    <VBox spacing="6.0">
-        <Label text="BIENVENIDO A VISA SHOES" styleClass="eyebrow" />
-        <Label text="Tu zapatería, con estilo y bajo control" styleClass="page-title" />
+    <VBox spacing="5.0" styleClass="page-header">
+        <Label text="VISA SHOES  /  STREETWEAR" styleClass="eyebrow" />
+        <Label text="Tu tienda, en orden." styleClass="page-title" />
         <Label text="Administra clientes, catálogo y ventas desde un solo lugar."
                wrapText="true" styleClass="page-description" />
     </VBox>
 
-    <StackPane fx:id="heroBanner" minHeight="235.0" prefHeight="250.0" styleClass="hero-banner">
+    <StackPane fx:id="heroBanner" minHeight="225.0" prefHeight="238.0" styleClass="hero-banner">
         <padding>
-            <Insets top="26.0" right="30.0" bottom="26.0" left="30.0" />
+            <Insets top="24.0" right="28.0" bottom="24.0" left="28.0" />
         </padding>
-        <HBox alignment="CENTER_LEFT" spacing="24.0">
-            <VBox spacing="12.0" styleClass="hero-copy" HBox.hgrow="ALWAYS">
+        <HBox alignment="CENTER_LEFT" spacing="22.0">
+            <VBox spacing="11.0" styleClass="hero-copy" HBox.hgrow="ALWAYS">
                 <Label text="NUEVA TEMPORADA  ·  VISA SHOES" styleClass="hero-kicker" />
-                <Label text="Elegancia para cada paso" styleClass="hero-title" wrapText="true" />
-                <Label text="Organiza tus productos y ofrece una atención cercana a cada cliente."
+                <Label text="Calzado urbano. Actitud propia." styleClass="hero-title" wrapText="true" />
+                <Label text="Encuentra cada modelo, controla tu stock y atiende con confianza."
                        styleClass="hero-description" wrapText="true" />
-                <Label text="CALIDAD   ·   COMODIDAD   ·   ESTILO" styleClass="hero-tags" />
+                <Label text="MODELOS  ·  TALLAS  ·  ESTILO" styleClass="hero-tags" />
             </VBox>
-            <ImageView fitHeight="210.0" fitWidth="270.0" pickOnBounds="true"
+            <ImageView fitHeight="200.0" fitWidth="255.0" pickOnBounds="true"
                        preserveRatio="true" smooth="true" styleClass="hero-product-image">
                 <image>
                     <Image url="@../images/fondo-zapateria.jpg" />
@@ -42,26 +44,30 @@
         </HBox>
     </StackPane>
 
-    <Label text="GESTIONA TU TIENDA" styleClass="section-title" />
-    <HBox spacing="14.0" VBox.vgrow="ALWAYS">
-        <VBox spacing="10.0" styleClass="module-card" HBox.hgrow="ALWAYS">
+    <HBox alignment="CENTER_LEFT" spacing="10.0">
+        <Label text="TU ZAPATERÍA" styleClass="section-title" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Label text="CLIENTES  ·  CATÁLOGO  ·  VENTAS" styleClass="section-meta" />
+    </HBox>
+    <HBox spacing="12.0" VBox.vgrow="ALWAYS">
+        <VBox spacing="9.0" styleClass="module-card" HBox.hgrow="ALWAYS">
             <Label text="01  /  ATENCIÓN" styleClass="card-number" />
             <Label text="Clientes" styleClass="card-title" />
-            <Label text="Consulta y mantén actualizados los datos de tus clientes."
+            <Label text="Mantén los datos de contacto de tus clientes organizados."
                    wrapText="true" styleClass="card-description" />
         </VBox>
-        <VBox spacing="10.0" styleClass="module-card" HBox.hgrow="ALWAYS">
+        <VBox spacing="9.0" styleClass="module-card" HBox.hgrow="ALWAYS">
             <Label text="02  /  CATÁLOGO" styleClass="card-number" />
             <Label text="Productos" styleClass="card-title" />
-            <Label text="Organiza modelos, tallas, precios y stock disponible."
+            <Label text="Controla modelos, marcas, tallas, precios y existencias."
                    wrapText="true" styleClass="card-description" />
         </VBox>
-        <VBox spacing="10.0" styleClass="module-card" HBox.hgrow="ALWAYS">
+        <VBox spacing="9.0" styleClass="module-card" HBox.hgrow="ALWAYS">
             <Label text="03  /  VENTAS" styleClass="card-number" />
             <Label text="Ventas" styleClass="card-title" />
-            <Label text="Registra compras y revisa el detalle de cada operación."
+            <Label text="Registra cada operación y consulta su detalle cuando quieras."
                    wrapText="true" styleClass="card-description" />
         </VBox>
     </HBox>
-    <Label text="Selecciona una sección del menú para comenzar." styleClass="page-note" />
+    <Label text="Elige una sección del menú para comenzar." styleClass="page-note" />
 </VBox>
