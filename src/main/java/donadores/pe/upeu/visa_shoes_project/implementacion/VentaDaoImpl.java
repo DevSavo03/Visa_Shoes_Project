@@ -1,10 +1,10 @@
-package donadores.pe.upeu.visa_shoes_project.Implements;
+package donadores.pe.upeu.visa_shoes_project.implementacion;
 
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IVentaDao;
-import donadores.pe.upeu.visa_shoes_project.Models.DetalleVenta;
-import donadores.pe.upeu.visa_shoes_project.Models.Producto;
-import donadores.pe.upeu.visa_shoes_project.Models.Venta;
-import donadores.pe.upeu.visa_shoes_project.Utils.ConexionDB_V;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IVentaDao;
+import donadores.pe.upeu.visa_shoes_project.modelo.DetalleVenta;
+import donadores.pe.upeu.visa_shoes_project.modelo.Producto;
+import donadores.pe.upeu.visa_shoes_project.modelo.Venta;
+import donadores.pe.upeu.visa_shoes_project.utils.ConexionDB_V;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -15,7 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VentaDaoImp implements IVentaDao {
+public class VentaDaoImpl implements IVentaDao {
 
     @Override
     public boolean insert(Venta venta) {

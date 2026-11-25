@@ -1,4 +1,4 @@
-package donadores.pe.upeu.visa_shoes_project.Models;
+package donadores.pe.upeu.visa_shoes_project.modelo;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

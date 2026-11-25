@@ -1,8 +1,8 @@
-package donadores.pe.upeu.visa_shoes_project.Controllers;
+package donadores.pe.upeu.visa_shoes_project.controller;
 
-import donadores.pe.upeu.visa_shoes_project.Implements.ProductoDaoImp;
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IProductoDao;
-import donadores.pe.upeu.visa_shoes_project.Models.Producto;
+import donadores.pe.upeu.visa_shoes_project.implementacion.ProductoDaoImpl;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IProductoDao;
+import donadores.pe.upeu.visa_shoes_project.modelo.Producto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -33,7 +33,7 @@ public class ProductoController {
     @FXML private TextField txtStock;
     @FXML private TextField txtBuscar;
 
-    private final IProductoDao productoDao = new ProductoDaoImp();
+    private final IProductoDao productoDao = new ProductoDaoImpl();
     private ObservableList<Producto> listaProductos;
     private FilteredList<Producto> productosFiltrados;
     private Producto productoSeleccionado;

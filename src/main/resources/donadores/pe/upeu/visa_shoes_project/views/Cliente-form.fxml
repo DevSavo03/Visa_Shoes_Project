@@ -12,7 +12,7 @@
       stylesheets="@../css/style.css"
       xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="donadores.pe.upeu.visa_shoes_project.Controllers.ClienteFormController">
+      fx:controller="donadores.pe.upeu.visa_shoes_project.controller.ClienteFormController">
     <padding>
         <Insets top="24.0" right="28.0" bottom="24.0" left="28.0" />
     </padding>

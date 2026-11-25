@@ -1,8 +1,8 @@
-package donadores.pe.upeu.visa_shoes_project.Implements;
+package donadores.pe.upeu.visa_shoes_project.implementacion;
 
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IClienteDao;
-import donadores.pe.upeu.visa_shoes_project.Models.Cliente;
-import donadores.pe.upeu.visa_shoes_project.Utils.ConexionDB_V;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IClienteDao;
+import donadores.pe.upeu.visa_shoes_project.modelo.Cliente;
+import donadores.pe.upeu.visa_shoes_project.utils.ConexionDB_V;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteDaoImp implements IClienteDao {
+public class ClienteDaoImpl implements IClienteDao {
 
     @Override
     public boolean insert(Cliente cliente) {

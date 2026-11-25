@@ -12,7 +12,7 @@
            stylesheets="@../css/style.css"
            xmlns="http://javafx.com/javafx/21"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="donadores.pe.upeu.visa_shoes_project.Controllers.LoginController">
+           fx:controller="donadores.pe.upeu.visa_shoes_project.controller.LoginController">
     <VBox alignment="CENTER_LEFT" spacing="13.0" maxWidth="355.0" styleClass="login-card">
         <padding>
             <Insets top="28.0" right="30.0" bottom="30.0" left="30.0" />

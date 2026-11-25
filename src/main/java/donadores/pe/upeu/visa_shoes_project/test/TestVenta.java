@@ -1,14 +1,14 @@
 package donadores.pe.upeu.visa_shoes_project.test;
 
-import donadores.pe.upeu.visa_shoes_project.Implements.VentaDaoImp;
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IVentaDao;
-import donadores.pe.upeu.visa_shoes_project.Models.Venta;
+import donadores.pe.upeu.visa_shoes_project.implementacion.VentaDaoImpl;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IVentaDao;
+import donadores.pe.upeu.visa_shoes_project.modelo.Venta;
 
 import java.util.List;
 
 public class TestVenta {
 
-    private static final IVentaDao ventaDao = new VentaDaoImp();
+    private static final IVentaDao ventaDao = new VentaDaoImpl();
 
     public static void listar() {
         List<Venta> ventas = ventaDao.listAll();

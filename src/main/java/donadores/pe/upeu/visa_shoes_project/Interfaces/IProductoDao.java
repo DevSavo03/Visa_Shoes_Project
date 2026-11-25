@@ -1,6 +1,6 @@
-package donadores.pe.upeu.visa_shoes_project.Interfaces;
+package donadores.pe.upeu.visa_shoes_project.interfaces;
 
-import donadores.pe.upeu.visa_shoes_project.Models.Producto;
+import donadores.pe.upeu.visa_shoes_project.modelo.Producto;
 
 import java.util.List;
 

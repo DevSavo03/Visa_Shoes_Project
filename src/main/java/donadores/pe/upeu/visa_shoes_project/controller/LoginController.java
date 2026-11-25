@@ -1,10 +1,10 @@
-package donadores.pe.upeu.visa_shoes_project.Controllers;
+package donadores.pe.upeu.visa_shoes_project.controller;
 
 import donadores.pe.upeu.visa_shoes_project.HelloApplication;
-import donadores.pe.upeu.visa_shoes_project.Implements.UsuarioDaoImp;
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IUsuarioDao;
-import donadores.pe.upeu.visa_shoes_project.Models.UserSession;
-import donadores.pe.upeu.visa_shoes_project.Models.Usuario;
+import donadores.pe.upeu.visa_shoes_project.implementacion.UsuarioDaoImpl;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IUsuarioDao;
+import donadores.pe.upeu.visa_shoes_project.modelo.UserSession;
+import donadores.pe.upeu.visa_shoes_project.modelo.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +22,7 @@ public class LoginController {
     @FXML
     private PasswordField txtPassword;
 
-    private final IUsuarioDao usuarioDao = new UsuarioDaoImp();
+    private final IUsuarioDao usuarioDao = new UsuarioDaoImpl();
 
     @FXML
     private void handleLogin() {

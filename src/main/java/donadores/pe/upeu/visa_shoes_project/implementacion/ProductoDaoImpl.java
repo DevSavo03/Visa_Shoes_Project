@@ -1,8 +1,8 @@
-package donadores.pe.upeu.visa_shoes_project.Implements;
+package donadores.pe.upeu.visa_shoes_project.implementacion;
 
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IProductoDao;
-import donadores.pe.upeu.visa_shoes_project.Models.Producto;
-import donadores.pe.upeu.visa_shoes_project.Utils.ConexionDB_V;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IProductoDao;
+import donadores.pe.upeu.visa_shoes_project.modelo.Producto;
+import donadores.pe.upeu.visa_shoes_project.utils.ConexionDB_V;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductoDaoImp implements IProductoDao {
+public class ProductoDaoImpl implements IProductoDao {
 
     @Override
     public boolean insert(Producto producto) {

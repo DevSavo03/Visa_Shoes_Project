@@ -1,15 +1,15 @@
-package donadores.pe.upeu.visa_shoes_project.Controllers;
+package donadores.pe.upeu.visa_shoes_project.controller;
 
-import donadores.pe.upeu.visa_shoes_project.Implements.ProductoDaoImp;
-import donadores.pe.upeu.visa_shoes_project.Implements.ClienteDaoImp;
-import donadores.pe.upeu.visa_shoes_project.Implements.VentaDaoImp;
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IProductoDao;
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IVentaDao;
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IClienteDao;
-import donadores.pe.upeu.visa_shoes_project.Models.Cliente;
-import donadores.pe.upeu.visa_shoes_project.Models.DetalleVenta;
-import donadores.pe.upeu.visa_shoes_project.Models.Producto;
-import donadores.pe.upeu.visa_shoes_project.Models.Venta;
+import donadores.pe.upeu.visa_shoes_project.implementacion.ProductoDaoImpl;
+import donadores.pe.upeu.visa_shoes_project.implementacion.ClienteDaoImpl;
+import donadores.pe.upeu.visa_shoes_project.implementacion.VentaDaoImpl;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IProductoDao;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IVentaDao;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IClienteDao;
+import donadores.pe.upeu.visa_shoes_project.modelo.Cliente;
+import donadores.pe.upeu.visa_shoes_project.modelo.DetalleVenta;
+import donadores.pe.upeu.visa_shoes_project.modelo.Producto;
+import donadores.pe.upeu.visa_shoes_project.modelo.Venta;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,9 +63,9 @@ public class VentaController {
     @FXML
     private TableColumn<Venta, String> colVentaCliente;
 
-    private final IProductoDao productoDao = new ProductoDaoImp();
-    private final IVentaDao ventaDao = new VentaDaoImp();
-    private final IClienteDao clienteDao = new ClienteDaoImp();
+    private final IProductoDao productoDao = new ProductoDaoImpl();
+    private final IVentaDao ventaDao = new VentaDaoImpl();
+    private final IClienteDao clienteDao = new ClienteDaoImpl();
     private final ObservableList<DetalleVenta> detalleActual = FXCollections.observableArrayList();
     private final ObservableList<Producto> productos = FXCollections.observableArrayList();
     private final FilteredList<Producto> productosFiltrados = new FilteredList<>(productos);

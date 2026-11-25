@@ -1,6 +1,6 @@
-package donadores.pe.upeu.visa_shoes_project.Controllers;
+package donadores.pe.upeu.visa_shoes_project.controller;
 
-import donadores.pe.upeu.visa_shoes_project.Models.Cliente;
+import donadores.pe.upeu.visa_shoes_project.modelo.Cliente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;

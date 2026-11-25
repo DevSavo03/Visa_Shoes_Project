@@ -1,6 +1,6 @@
 package donadores.pe.upeu.visa_shoes_project.test;
 
-import donadores.pe.upeu.visa_shoes_project.Utils.ConexionDB_V;
+import donadores.pe.upeu.visa_shoes_project.utils.ConexionDB_V;
 
 import java.sql.Connection;
 

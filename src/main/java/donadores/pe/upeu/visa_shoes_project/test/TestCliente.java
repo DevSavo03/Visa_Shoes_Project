@@ -1,14 +1,14 @@
 package donadores.pe.upeu.visa_shoes_project.test;
 
-import donadores.pe.upeu.visa_shoes_project.Implements.ClienteDaoImp;
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IClienteDao;
-import donadores.pe.upeu.visa_shoes_project.Models.Cliente;
+import donadores.pe.upeu.visa_shoes_project.implementacion.ClienteDaoImpl;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IClienteDao;
+import donadores.pe.upeu.visa_shoes_project.modelo.Cliente;
 
 import java.util.List;
 
 public class TestCliente {
 
-    private static final IClienteDao clienteDao = new ClienteDaoImp();
+    private static final IClienteDao clienteDao = new ClienteDaoImpl();
 
     public static void listar() {
         List<Cliente> clientes = clienteDao.listAll();

@@ -1,8 +1,8 @@
-package donadores.pe.upeu.visa_shoes_project.Controllers;
+package donadores.pe.upeu.visa_shoes_project.controller;
 
-import donadores.pe.upeu.visa_shoes_project.Implements.ClienteDaoImp;
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IClienteDao;
-import donadores.pe.upeu.visa_shoes_project.Models.Cliente;
+import donadores.pe.upeu.visa_shoes_project.implementacion.ClienteDaoImpl;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IClienteDao;
+import donadores.pe.upeu.visa_shoes_project.modelo.Cliente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,7 +30,7 @@ public class ClienteController {
     @FXML private TableColumn<Cliente, String> colCelular;
     @FXML private TableColumn<Cliente, String> colCorreo;
 
-    private final IClienteDao clienteDao = new ClienteDaoImp();
+    private final IClienteDao clienteDao = new ClienteDaoImpl();
     private ObservableList<Cliente> listaClientes;
 
     @FXML

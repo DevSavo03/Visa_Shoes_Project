@@ -1,4 +1,4 @@
-package donadores.pe.upeu.visa_shoes_project.Utils;
+package donadores.pe.upeu.visa_shoes_project.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package donadores.pe.upeu.visa_shoes_project.Models;
+package donadores.pe.upeu.visa_shoes_project.modelo;
 
 public class UserSession {
         private static UserSession instance;

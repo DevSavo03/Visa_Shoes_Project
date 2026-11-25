@@ -1,16 +1,16 @@
-package donadores.pe.upeu.visa_shoes_project.Implements;
+package donadores.pe.upeu.visa_shoes_project.implementacion;
 
 
-import donadores.pe.upeu.visa_shoes_project.Interfaces.IUsuarioDao;
-import donadores.pe.upeu.visa_shoes_project.Models.Usuario;
-import donadores.pe.upeu.visa_shoes_project.Utils.ConexionDB_V;
+import donadores.pe.upeu.visa_shoes_project.interfaces.IUsuarioDao;
+import donadores.pe.upeu.visa_shoes_project.modelo.Usuario;
+import donadores.pe.upeu.visa_shoes_project.utils.ConexionDB_V;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UsuarioDaoImp implements IUsuarioDao {
+public class UsuarioDaoImpl implements IUsuarioDao {
 
     @Override
     public Usuario login(String user, String password) {

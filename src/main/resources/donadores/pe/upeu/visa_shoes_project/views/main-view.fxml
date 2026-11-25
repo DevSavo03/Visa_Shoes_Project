@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="720.0" prefWidth="1100.0" styleClass="app-shell" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="donadores.pe.upeu.visa_shoes_project.Controllers.MainController">
+<BorderPane prefHeight="720.0" prefWidth="1100.0" styleClass="app-shell" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="donadores.pe.upeu.visa_shoes_project.controller.MainController">
     <top>
         <VBox>
             <HBox alignment="CENTER" styleClass="announcement-bar">
