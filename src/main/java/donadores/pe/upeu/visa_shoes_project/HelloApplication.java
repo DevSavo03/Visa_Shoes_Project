@@ -16,7 +16,7 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 480, 400);
         stage.getIcons().add(
                 new Image(getClass().getResourceAsStream(
-                        "/donadores/pe/upeu/visa_shoes_project/images/logo.png")));
+                        "/donadores/pe/upeu/visa_shoes_project/images/logo.ico")));
         stage.setTitle("Visa Shoes - Iniciar sesión");
         stage.setScene(scene);
         stage.show();
